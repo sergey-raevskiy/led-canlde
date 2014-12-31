@@ -32,7 +32,7 @@ uint8_t Rand(void) {
 // Led connected to PB0
 #define LEDPORT PORTB
 #define LEDDDR  DDRB
-#define LEDPIN  PB4
+#define LEDPIN  PB1
 
 int main(void)
 {
@@ -51,13 +51,13 @@ int main(void)
 	
     while(1)
     {				
-		_delay_us(1e6/440/16);   // Main clock=440*16 Hz
+		_delay_us(1e6/220/16);   // Main clock=440*16 Hz
 		
 		// PWM		
 		PWM_CTR++;
 		PWM_CTR&=0xf;		// only 4 bit
 		
-		if (PWM_CTR<=PWM_VAL) {LEDPORT|=_BV(LEDPIN);} else {LEDPORT&=~_BV(LEDPIN);}  
+		if (!(PWM_CTR<=PWM_VAL)) {LEDPORT|=_BV(LEDPIN);} else {LEDPORT&=~_BV(LEDPIN);}  
 
 		// FRAME
 		if (PWM_CTR==0) 
